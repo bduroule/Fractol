@@ -22,9 +22,9 @@ void			set_color(t_file *file)
 
 void get_color(t_file *file, int x, int y, double mu)
 {
-	file->color.red = (mu / file->frac.maxIT) * 2 * (file->color.r % 255);
-	file->color.green = (mu / file->frac.maxIT) * 2 * (file->color.g % 255);
-	file->color.blue = (mu / file->frac.maxIT) * 2 * (file->color.b % 255);
+	file->color.red = (mu / (int)file->frac.maxIT) * 2 * (file->color.r % 255);
+	file->color.green = (mu / (int)file->frac.maxIT) * 2 * (file->color.g % 255);
+	file->color.blue = (mu / (int)file->frac.maxIT) * 2 * (file->color.b % 255);
 	color_pixel(file, x, y);
 }
 

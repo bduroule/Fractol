@@ -72,7 +72,7 @@ int				mouse_press(int key, int x, int y, t_file *file)
 	if (key == 1)
 		set_color(file);
 	if (key == 2)
-		set_color(file);
+		init_color(file);
 	display(file);
 	return (0);
 }

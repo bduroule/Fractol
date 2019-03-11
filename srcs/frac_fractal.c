@@ -33,7 +33,7 @@ void	mandelbrot_algo(t_file *e, int x, int y)
 			break;
 		i++;
 	}
-	co = i + 1 - log(log(sqrt((e->frac.newRe * e->frac.newRe) + (e->frac.newIm * e->frac.newIm)))) + 4;
+	co = i + 1 - log(log(sqrt((e->frac.newRe * e->frac.newRe) + (e->frac.newIm * e->frac.newIm)))) + log(4);
 	//co = i + 1 - log(log((e->frac.newIm * e->frac.newIm) + (e->frac.newRe * e->frac.newRe))) + log(2);
 	get_color(e, x, y, co);
 }
@@ -58,7 +58,7 @@ void    julia_algo(t_file *e, int x, int y)
           break;
         i++;
     }
-co = i + 1 - log(log(sqrt((e->frac.newRe * e->frac.newRe) + (e->frac.newIm * e->frac.newIm)))) + 4;	
+co = i + 1 - log(log(sqrt((e->frac.newRe * e->frac.newRe) + (e->frac.newIm * e->frac.newIm)))) + log(4);	
     /*e->color.blue = (i / 256) * e->frac.maxIT;
     e->color.green = (int)(i * e->frac.maxIT / 55);
     e->color.red = (int)(i / 255);*/
@@ -86,7 +86,7 @@ void burning_ship_algo(t_file *e, int x, int y)
 		i++;
 	}
 	co = i + 1 - log(log(sqrt((e->frac.newRe * e->frac.newRe) + (e->frac.newIm * e->frac.newIm)))) + 4;
-	get_color(e, x, y, i);
+	get_color(e, x, y, co);
     /*e->color.blue = (i / 255) * e->frac.maxIT;
     e->color.green = (int)(i * e->frac.maxIT / 200);
     e->color.red = (int)(i / 250);*/		

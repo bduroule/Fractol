@@ -62,5 +62,6 @@ int						multithreads(t_file *file);
 void                    get_color(t_file *file, int x, int y, double mu);
 void					color_pixel(t_file *file, int x, int y);
 void					display(t_file *file);
+void                    init_color(t_file *file);
 
 #endif

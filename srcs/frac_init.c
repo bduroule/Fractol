@@ -22,9 +22,14 @@ void init_mlx(t_file *file)
     file->ptr_img = mlx_new_image(file->mlx_ptr, WIDTH, HEIGHT);
 	file->my_str_img = mlx_get_data_addr(file->ptr_img, &(file->bpp), &(file->s_l)
     , &(file->endian));
-	file->color.r = 100;
-	file->color.g = 230;
-	file->color.b = 255;
+	init_color(file);
+}
+
+void init_color(t_file *file)
+{
+	file->color.r = 984943658;
+	file->color.g = 1144108930;
+	file->color.b = 470211272;
 }
 
 void init_julia(t_file *file)
@@ -60,20 +65,6 @@ void	init_burning_ship(t_file *file)
 	file->frac.zoom = 400;
 	file->frac.moveX = -1.8;
 	file->frac.moveY = -1.3;
-	file->frac.maxIT = 100;
-	file->frac.cRe = 0;
-	file->frac.cIm = 0;
-	file->frac.newRe = 0;
-	file->frac.newIm = 0;
-	file->frac.oldRe = 0;
-	file->frac.oldIm = 0;
-}
-
-void	init_buddha(t_file *file)
-{
-	file->frac.zoom = 400;
-	file->frac.moveX = -2;
-	file->frac.moveY = -0.9;
 	file->frac.maxIT = 100;
 	file->frac.cRe = 0;
 	file->frac.cIm = 0;
