@@ -11,7 +11,6 @@
 /*                                                        /                   */
 /* ************************************************************************** */
 
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -27,41 +26,47 @@
 # define SWINDOW WIDTH/ THREAD
 
 /*
-** init
+** Init
 */
-void 					init_julia(t_file *file);
+void					init_julia(t_file *file);
 void					init_mandelbrot(t_file *file);
 void					init_mlx(t_file *file);
 void					set_color(t_file *file);
 void					init_burning_ship(t_file *file);
 
 /*
-** fractal algo
+** Fractal algo
 */
-void    				julia_algo(t_file *file, int x, int y);
+void					julia_algo(t_file *file, int x, int y);
 void					mandelbrot_algo(t_file *file, int x, int y);
-void 					burning_ship_algo(t_file *file, int x, int y);
-void                    buddha_algo(t_file *file, int x, int y);
+void					burning_ship_algo(t_file *file, int x, int y);
 
 /*
-**  event
+** Event
 */
-int 					deal_key(int key, t_file *file);
+int						deal_key(int key, t_file *file);
 int						mouse_press(int key, int x, int y, t_file *file);
-int 					mouse_moove(int x, int y, t_file *file);
+int						mouse_moove(int x, int y, t_file *file);
 
 /*
-**  multi tread
+** Multi tread
 */
 void					*parc_algo(void *file);
 int						multithreads(t_file *file);
+void					frac_type(t_file *file, char *str);
 
 /*
-** display
+** Display
 */
-void                    get_color(t_file *file, int x, int y, double mu);
+void					get_color(t_file *file, int x, int y, double mu);
 void					color_pixel(t_file *file, int x, int y);
 void					display(t_file *file);
-void                    init_color(t_file *file);
+void					init_color(t_file *file);
+
+/*
+** Error
+*/
+int						out(void *param);
+void					frac_error(char *str, t_file *file);
 
 #endif

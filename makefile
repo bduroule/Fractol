@@ -13,38 +13,66 @@
 
 NAME = fractol
 
+#Color
+BLUE 	= \033[2K\r\033[36m
+GREEN 	= \e[92m
+WITHE 	= \033[37m
+YELLOW	= \033[33m
+END 	= \033[0m
+
+#Dir
+OBJ_PATH = ./obj/
+SRC_PATH = ./srcs/
+INC_PATH = ./include/
+
+#file
+SRC_NAME = 	frac_main.c frac_display.c  \
+			frac_event.c frac_thread.c frac_init.c \
+			frac_fractal.c frac_error.c
+
+# mlx library
+MLX        = ./miniLibx_macos/
+MLX_LIB    = $(addprefix $(MLX),mlx.a)
+MLX_INC    = -I ./miniLibx_macos
+MLX_LNK    = -L ./miniLibx_macos -l mlx -framework OpenGL -framework AppKit
+
+# ft library
+FT        = ./libft/
+FT_LIB    = $(addprefix $(FT),libft.a)
+FT_INC    = -I ./libft
+FT_LNK    = -L ./libft -l ft
+
+SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
+OBJ	= $(addprefix $(OBJ_PATH), $(SRC_NAME:.c=.o))
+
+#compil
 CC = gcc
-
-SRC = srcs/frac_main.c srcs/frac_display.c  \
-		 srcs/frac_event.c srcs/frac_thread.c srcs/frac_init.c \
-		srcs/frac_fractal.c
-
-OBJ = $(SRC:.c=.o)
-
-INC_HDR = -I./include -I./libft/include -I./minilibx_macos
-
-INC_LIB = -L./libft -lft -L./minilibx_macos -lmlx \
-		  -framework OpenGL -framework AppKit
-
-CFLAGS = -Werror -Wextra -Wall $(INC_HDR) -ggdb
+CFLAGS = -Werror -Wextra -Wall $(INC_HDR) -ggdb -O3
 
 all: $(NAME)
+
+$(OBJ_PATH):
+	@mkdir -p $(OBJ_PATH)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c include/fractol.h include/struct.h | $(OBJ_PATH)
+	@$(CC) $(CFLAGS) $(FT_INC) $(MLX_INC) -I $(INC_PATH)  -o $@ -c $<
+	@printf "$(BLUE)>>Compiling $(WITHE) $< $(END)"
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C libft
 	@$(MAKE) -C minilibx_macos
-	@printf "\033[33m$(NAME)\033[0m\t\t\t\t\t\t\t\t[\033[92mCOMPILED\033[39m]\n"
-	@$(CC) $(CFLAGS) $(INC_LIB) $(SRC) -o $(NAME)
+	@$(CC) $(OBJ) $(MLX_LNK) $(FT_LNK) -o $(NAME)
+	@printf "$(YELLOW)$(NAME)$(END)		$(GREEN)[compiled]$(END)\n"
 
-%.o: %.c include/fractol.h include/struct.h
-	@$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_PATH)
 	@cd libft && $(MAKE) clean
+	@cd miniLibx_macos && $(MAKE) clean
 
 fclean: clean
 	@rm -f $(NAME)
 	@cd libft && $(MAKE) fclean
+	@cd miniLibx_macos && $(MAKE) fclean
 
 re: fclean all

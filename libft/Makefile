@@ -13,9 +13,10 @@
 
 #Color
 GREEN 	= \e[92m
-END 	= \e[97m
-END2	= \e[0m
-GREEN2	= \e[92;7m
+BLUE 	= \033[2K\r\033[36m
+WITHE 	= \033[37m
+END 	= \033[0m
+YELLOW	= \033[33m
 
 #Compil
 CC 		= gcc
@@ -27,7 +28,7 @@ SRC_PATH = ./src
 INC_PATH = ./include
 
 #File
-NAME = libft.a
+NAME	 = libft.a
 INC_NAME = libft.h get_next_line.h
 SRC_NAME =	ft_atoi.c			ft_strcmp.c			ft_strcpy.c 		\
 			ft_strlen.c			ft_strncmp.c		ft_strncpy.c 		\
@@ -52,9 +53,9 @@ SRC_NAME =	ft_atoi.c			ft_strcmp.c			ft_strcpy.c 		\
  	  		ft_foreach.c		ft_factorial.c		ft_power.c			\
  	  		ft_is_prime.c		ft_swap.c			ft_range.c 			\
  		  	ft_intsize.c 		get_next_line.c		ft_sqrt.c			\
-			ft_strcchr.c
+			ft_strcchr.c		
 
-INC = $(addprefix $(INC_PATH)/, $(INC_NAME))  	
+INC = $(addprefix $(INC_PATH)/, $(INC_NAME))
 OBJ	= $(addprefix $(OBJ_PATH)/, $(SRC_NAME:.c=.o))
 SRC = $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 
@@ -62,25 +63,22 @@ all: obj $(NAME)
 
 $(NAME): $(OBJ)
 	@ar -rcs $(NAME) $?
-	@printf "\nlibft built.................................................... \
-	$(GREEN)[ok]$(END)\n"
+	@printf "\n$(YELLOW)libft$(END)		$(GREEN)[libft compiled@]$(END)\n"
 
 obj:
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(GREEN2) $(END2)"
+	@printf "$(BLUE)>>Compiling $(WITHE) $< $(END)"
 
 clean:
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_PATH)
-	@printf "remove obect................................................... \
-	$(GREEN)[ok]$(END)\n"
+	@printf "$(YELLOW)libft$(END)		$(GREEN)[remove object]$(END)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "remove libft................................................... \
-	$(GREEN)[ok]$(END)\n"
+	@printf "$(YELLOW)libft$(END)		$(GREEN)[remove libft]$(END)\n"
 
 re: fclean all

@@ -13,22 +13,22 @@
 
 #include "fractol.h"
 
-void			set_color(t_file *file)
+void		set_color(t_file *file)
 {
-	file->color.r = rand();
-	file->color.g = rand();
-	file->color.b = rand();
+	file->color.r = rand() % 255;
+	file->color.g = rand() % 255;
+	file->color.b = rand() % 255;
 }
 
-void get_color(t_file *file, int x, int y, double mu)
+void		get_color(t_file *file, int x, int y, double mu)
 {
-	file->color.red = (mu / (int)file->frac.maxIT) * 2 * (file->color.r % 255);
-	file->color.green = (mu / (int)file->frac.maxIT) * 2 * (file->color.g % 255);
-	file->color.blue = (mu / (int)file->frac.maxIT) * 2 * (file->color.b % 255);
+	file->color.red = (mu / file->frac.maxit) * 2 * (file->color.r % 255);
+	file->color.green = (mu / file->frac.maxit) * 2 * (file->color.g % 255);
+	file->color.blue = (mu / file->frac.maxit) * 2 * (file->color.b % 255);
 	color_pixel(file, x, y);
 }
 
-void			color_pixel(t_file *file, int x, int y)
+void		color_pixel(t_file *file, int x, int y)
 {
 	int i;
 
@@ -41,13 +41,11 @@ void			color_pixel(t_file *file, int x, int y)
 	}
 }
 
-void			display(t_file *file)
+void		display(t_file *file)
 {
-	file->ptr_img = mlx_new_image(file->mlx_ptr, WIDTH, HEIGHT);
-	file->my_str_img = mlx_get_data_addr(file->ptr_img, &(file->bpp),
-	&(file->s_l), &(file->endian));
-	mlx_clear_window(file->mlx_ptr, file->win_ptr);
+	t_file *e;
+
+	e = file;
 	multithreads(file);
 	mlx_put_image_to_window(file->mlx_ptr, file->win_ptr, file->ptr_img, 0, 0);
-	mlx_destroy_image(file->mlx_ptr, file->ptr_img);
 }
